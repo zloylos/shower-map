@@ -1,0 +1,19 @@
+{
+  "name": "shower-map",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "shower-map.js",
+  "ignore": [
+    "*",
+    "!License.md",
+    "!Readme.md",
+    "!shower-map.js",
+    "!bower.json"
+  ],
+  "keywords": [
+    "shower",
+    "presentation",
+    "plugin",
+    "map"
+  ]
+}
