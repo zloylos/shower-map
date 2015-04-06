@@ -1,6 +1,9 @@
 # Maps plugin for Shower v2
 
+![screenshot](http://zloy.me/other/imgs/shower-map.png)
+
 Shower plugin for show maps (with placemarks) in presentation.
+Based on the JS API Yandex.Maps (ru: http://tech.yandex.ru/maps/, en: https://api.yandex.com/maps/doc/jsapi/)
 
 ## install 
 
