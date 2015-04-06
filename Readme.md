@@ -66,5 +66,5 @@ For init new placemark you need his position into geo coords. Placemark must be 
 	<placemark data-coords="55.75, 37.61" data-hint="Test" />
     <placemark data-coords="55.71, 37.62" data-color="#ff0000" />
     <placemark data-coords="55.9, 37.64" data-balloon="Test" />
-</ymaps>
+</ymap>
 ```
