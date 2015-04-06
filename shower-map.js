@@ -9,7 +9,6 @@ modules.define('shower-map', [
         BASE_API_PATH = 'https://api-maps.yandex.ru/',
         DEFAULT_MAP_OPTIONS = {
             mapType: 'yandex#map',
-            center: [55.755768, 37.617671],
             zoom: 15,
             controls: 'smallMapDefaultSet',
             width: '100%',
@@ -23,17 +22,17 @@ modules.define('shower-map', [
 
     /**
      * @class
-     * @name ShowerMap
-     * Shower plugin for make maps in presentation.
+     * @name shower-map
+     * Shower plugin for show maps (with placemarks) in presentation.
      * 
      * @param {Shower} shower
      * @param {object} [options]
-     * @param {number[]} [options.center = [54, 32]]
      * @param {number} [options.zoom = 12] 
      * @param {string} [options.mapType = 'yandex#map']
      * @param {string} [options.controls = 'smallMapDefaultSet'] 
      * @param {string|number} [options.width = '100%']
      * @param {string|number} [options.height = '80%']
+     * @param {string} [options.placemarkIconColor]
      * @param {object} [options.api]
      * @param {string} [options.api.version = '2.1']
      * @param {string} [options.api.mode = 'release']
@@ -123,7 +122,7 @@ modules.define('shower-map', [
         _initMap: function (mapElement) {
             var data = mapElement.dataset,
                 center = data.center,
-                zoom = data.zoom, 
+                zoom = data.zoom || this.options.zoom, 
                 controls = data.controls || this.options.controls,
                 width = data.width || this.options.width,
                 height = data.height || this.options.height,
@@ -182,21 +181,33 @@ modules.define('shower-map', [
         _initPlacemark: function (map, element) {
             var data = element.dataset,
                 coords = data.coords,
-                balloonContent = data.balloon
-                hintContent = data.hint;
+                iconColor = data.color || this.options.placemarkIconColor,
+                balloonContent = data.balloon,
+                hintContent = data.hint,
+                placemarkOptions = {};
 
             coords = parseCoord(coords);
+
+            if (iconColor) {
+                placemarkOptions.iconColor = iconColor;
+            }
 
             map.geoObjects.add(new ymaps.Placemark(coords, {
                 balloonContent: balloonContent,
                 hintContent: hintContent
-            }));
+            }, placemarkOptions));
         },
 
         _isApiDefined: function () {
             return typeof ymaps !== 'undefined';
         },
 
+        /**
+         * @ignore
+         * @param {string} selector
+         * @param {HTMLElement} [container] Default use shower container element.
+         * @returns {HTMLElement[]}
+         */
         _find: function (selector, container) {
             container = container || this._shower.container.getElement();
             var elements = container.querySelectorAll(selector);
