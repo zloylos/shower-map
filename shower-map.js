@@ -1,4 +1,4 @@
-modules.define('shower-map', [
+shower.modules.define('shower-map', [
     'shower',
     'util.bind',
     'util.extend'
@@ -24,19 +24,19 @@ modules.define('shower-map', [
      * @class
      * @name shower-map
      * Shower plugin for show maps (with placemarks) in presentation.
-     * 
+     *
      * @param {Shower} shower
      * @param {object} [options]
-     * @param {number} [options.zoom = 12] 
+     * @param {number} [options.zoom = 12]
      * @param {string} [options.mapType = 'yandex#map']
-     * @param {string} [options.controls = 'smallMapDefaultSet'] 
+     * @param {string} [options.controls = 'smallMapDefaultSet']
      * @param {string|number} [options.width = '100%']
      * @param {string|number} [options.height = '80%']
      * @param {string} [options.placemarkIconColor]
      * @param {object} [options.api]
      * @param {string} [options.api.version = '2.1']
      * @param {string} [options.api.mode = 'release']
-     * 
+     *
      * @example
      * <ymap data-center="54.33, 45.33" data-zoom="12">
      *      <placemark data-coords="54, 23" />
@@ -58,18 +58,19 @@ modules.define('shower-map', [
         options.api = options.api || {};
 
         this._shower = shower;
-        
         this.options = extend({}, DEFAULT_MAP_OPTIONS, options);
-        this.options.api = extend({}, DEFAULT_API_OPTIONS, options.api); 
+        this.options.api = extend({}, DEFAULT_API_OPTIONS, options.api);
 
         this._maps = [];
+
+        this.init();
     }
 
     extend(ShowerMap.prototype, /** @lends ShowerMap.prototype */ {
         init: function () {
             var isApiDefined = this._isApiDefined();
 
-            // If JS API already loaded — 
+            // If JS API already loaded.
             if (isApiDefined) {
                 ymaps.ready().then(this._initMaps, this);
             } else {
@@ -90,7 +91,7 @@ modules.define('shower-map', [
          */
         getMaps: function () {
             return this._maps;
-        },  
+        },
 
         /**
          * @ignore
@@ -111,8 +112,15 @@ modules.define('shower-map', [
         },
 
         _initMaps: function () {
-            var elements = this._find(MAP_ELEMENT_SELECTOR);
-            elements.forEach(this._initMap, this);
+            this._shower.getSlidesArray().forEach(function (slide) {
+                var layoutElement = slide.layout.getElement();
+                var mapElements = layoutElement.querySelectorAll(MAP_ELEMENT_SELECTOR);
+                if (mapElements.length > 0) {
+                    Array.prototype.slice.call(mapElements).forEach(function (element) {
+                        this._initMap(element);
+                    }, this);
+                }
+            }, this);
         },
 
         /**
@@ -122,7 +130,7 @@ modules.define('shower-map', [
         _initMap: function (mapElement) {
             var data = mapElement.dataset,
                 center = data.center,
-                zoom = data.zoom || this.options.zoom, 
+                zoom = data.zoom || this.options.zoom,
                 controls = data.controls || this.options.controls,
                 width = data.width || this.options.width,
                 height = data.height || this.options.height,
@@ -233,6 +241,6 @@ modules.define('shower-map', [
     provide(ShowerMap);
 });
 
-modules.require(['shower'], function (shower) {
+shower.modules.require(['shower'], function (shower) {
     shower.plugins.add('shower-map');
 });

@@ -5,7 +5,7 @@
 Shower plugin for show maps (with placemarks) in presentation.
 Based on the JS API Yandex.Maps (ru: http://tech.yandex.ru/maps/, en: https://api.yandex.com/maps/doc/jsapi/)
 
-## install 
+## install
 
 ``` npm i --save shower-map```
 
@@ -14,25 +14,8 @@ And include file shower-map.js from node_modules/shower-map folder.
 ## how to use
 ### map
 
-```(html) 
-<ymap data-center="55.755768, 37.617671" data-zoom="15"></ymaps>
-```
-
-For init map you need two things: center and zoom.
-You can set zoom into data-\* attr or set default value in shower options like this: 
-
-```(js)
-modules.require(['shower'], function (shower) {
-	shower.options.plugins['shower-map']= {
-    	zoom: 20
-    }
-});
-```
-
-And now init new map like this:
-
-```(html) 
-<ymap data-center="55.755768, 37.617671"></ymaps>
+```(html)
+<ymap data-center="55.755768, 37.617671" data-zoom="15"></ymap>
 ```
 
 **Default plugin options for map:**
@@ -45,12 +28,12 @@ And now init new map like this:
 
 ### placemarks
 
-For init new placemark you need his position into geo coords. Placemark must be located into ymaps tag.
+For init new placemark you need his position into geo coords. Placemark must be located into ymap tag.
 
-```(html) 
+```(html)
 <ymap data-center="55.755768, 37.617671">
 	<placemark data-coords="55.755768, 37.617671" />
-</ymaps>
+</ymap>
 ```
 
 **Options for placemarks:**
@@ -61,7 +44,7 @@ For init new placemark you need his position into geo coords. Placemark must be 
 
 ### example
 
-```(html) 
+```(html)
 <ymap data-center="55.755768, 37.617671" data-zoom="10" data-width="350px" data-height="350px">
 	<placemark data-coords="55.75, 37.61" data-hint="Test" />
     <placemark data-coords="55.71, 37.62" data-color="#ff0000" />
