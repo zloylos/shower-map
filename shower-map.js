@@ -112,7 +112,7 @@ shower.modules.define('shower-map', [
         },
 
         _initMaps: function () {
-            this._shower.getSlidesArray().forEach(function (slide) {
+            this._shower.getSlides().forEach(function (slide) {
                 var layoutElement = slide.layout.getElement();
                 var mapElements = layoutElement.querySelectorAll(MAP_ELEMENT_SELECTOR);
                 if (mapElements.length > 0) {

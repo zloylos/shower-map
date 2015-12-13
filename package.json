@@ -1,9 +1,9 @@
 {
   "name": "shower-map",
   "description": "Map plugin for Shower HTML presentation engine",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
-    "name": "Denis Hananein",
+    "name": "Denis Hananein <i@zloy.me>",
     "url": "http://zloy.me/"
   },
   "homepage": "https://github.com/zloylos/shower-map",
